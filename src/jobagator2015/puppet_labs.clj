@@ -8,4 +8,19 @@
 
 (def job_data (->> (re-seq #"var jobs_data_preload = (.*?});" content) first last))
 
-(def entries (json/parse-string job_data))
+(def entries (get (json/parse-string job_data) "jobs"))
+
+(->> entries
+    (filter #(= "Portland" (get % "city")))
+    (map #(array-map
+            :title (get % "title")
+            :url   (get % "detail_url")))
+    (map #(str
+        site
+        "/jobs?url="
+        (java.net.URLEncoder/encode (:url %))
+        "&title="
+        (java.net.URLEncoder/encode (:title %))))
+     (pmap #(client/post %))
+)
+
