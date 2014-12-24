@@ -2,7 +2,6 @@
 (def site "http://localhost:5000")
 
 (require '[net.cgrand.enlive-html :as html])
-(require '[clj-http.client :as client])
 
 (def content (html/html-resource (java.net.URL. "http://portland.craigslist.org/search/sof")))
 (def entries (html/select content [:p.row :a.hdrlnk]))

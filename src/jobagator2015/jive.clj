@@ -3,7 +3,6 @@
 (def site "http://localhost:5000")
 
 (require '[net.cgrand.enlive-html :as html])
-(require '[clj-http.client :as client])
 
 (def content (html/html-resource (java.net.URL. "https://hire.jobvite.com/CompanyJobs/Careers.aspx?c=qLY9Vfwx&jvresize=https://www.jivesoftware.com/wp-content/themes/jive2015/functions/frameresize.htm")))
 (def entries (html/select content [:.joblist :tr]))

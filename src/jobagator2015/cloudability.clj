@@ -2,7 +2,6 @@
 (def site "http://localhost:5000")
 
 (require '[net.cgrand.enlive-html :as html])
-(require '[clj-http.client :as client])
 
 (def content (html/html-resource (java.net.URL. "https://cloudability.bamboohr.com/jobs/embed2.php")))
 (def entries (html/select content [:li]))

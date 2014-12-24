@@ -3,7 +3,6 @@
 (def site "https://frozen-forest-9048.herokuapp.com")
 
 (require '[net.cgrand.enlive-html :as html])
-(require '[clj-http.client :as client])
 
 (def content (html/html-resource (java.net.URL. "http://siliconflorist.com/jobs/")))
 (def entries (html/select content [:table#wpjb_jobboard :tr]))
