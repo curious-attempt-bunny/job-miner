@@ -3,7 +3,9 @@
 
 (require '[net.cgrand.enlive-html :as html])
 
-(def content (html/html-resource (java.net.URL. "http://portland.craigslist.org/search/sof")))
+(def content (concat
+    (html/html-resource (java.net.URL. "http://portland.craigslist.org/search/sof"))
+    (html/html-resource (java.net.URL. "http://portland.craigslist.org/search/eng"))))
 (def entries (html/select content [:p.row :a.hdrlnk]))
 
 (->> entries
