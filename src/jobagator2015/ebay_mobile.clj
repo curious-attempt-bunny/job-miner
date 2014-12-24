@@ -4,15 +4,16 @@
 (require '[net.cgrand.enlive-html :as html])
 
 (def content (html/html-resource (java.net.URL. "http://jobs.ebaycareers.com/portland/mobile-jobs")))
-(def entries (html/select content [:.joblist :li]))
+(def entries (html/select content [:tr]))
 
 (->> entries
-    (remove #(nil? (html/select % [:a.jvjoblink])))
-    (filter #(= "Portland, OR, United States" (first (:content (last (html/select % [:span]))))))
-    (map #(first (html/select % [:a.jvjoblink])))
+    (filter #(not-empty (html/select % [:td :a])))
+    (filter #(not-empty (html/select % [:td.location])))
+    (filter #(= "Portland, OR" (first (:content (last (html/select % [:td.location]))))))
+    (map #(first (html/select % [:a])))
     (map #(array-map
             :title (clojure.string/trim (first (:content %)))
-            :url   (-> % :attrs :href)))
+            :url   (str "http://jobs.ebaycareers.com" (-> % :attrs :href))))
     (map #(str
         site
         "/jobs?url="
