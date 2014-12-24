@@ -1,18 +1,18 @@
-(def site "http://localhost:5000")
 (def site "https://frozen-forest-9048.herokuapp.com")
+(def site "http://localhost:5000")
 
 (require '[net.cgrand.enlive-html :as html])
 (require '[clj-http.client :as client])
 
-(def content (html/html-resource (java.net.URL. "http://siliconflorist.com/jobs/")))
-(def entries (html/select content [:table#wpjb_jobboard :tr]))
+(def content (html/html-resource (java.net.URL. "http://portland.craigslist.org/search/sof")))
+(def entries (html/select content [:p.row :a.hdrlnk]))
 
 (->> entries
-     (map #(first (html/select % [:td :a])))
-     (remove nil?)
+    (remove nil?)
      (map #(array-map
                 :title (first (:content %))
-                :url   (-> % :attrs :href)))
+                :url   (str "http://portland.craigslist.org"
+                            (-> % :attrs :href))))
      (map #(str
             site
             "/jobs?url="
@@ -25,4 +25,3 @@
 
 
 
-http://portland.craigslist.org/search/sof
