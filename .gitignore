@@ -2,3 +2,5 @@ target
 .lein-repl-history
 .idea
 jobagator2015.iml
+.lein-env
+.nrepl-port
