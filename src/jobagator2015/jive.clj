@@ -1,4 +1,3 @@
-(ns jobagator2015.core)
 (def site "https://frozen-forest-9048.herokuapp.com")
 (def site "http://localhost:5000")
 
