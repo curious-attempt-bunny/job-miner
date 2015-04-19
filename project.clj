@@ -1,4 +1,5 @@
 (defproject jobagator2015 "0.1"
+  :main jobagator2015.import
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [enlive "1.1.5"]
                  [clj-http "1.0.1"]

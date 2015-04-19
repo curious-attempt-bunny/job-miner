@@ -29,11 +29,17 @@
         "&title="
         (java.net.URLEncoder/encode (:title job))))
 
+(defn- post
+    [url]
+    (print ".")
+    (client/post url))
+
 (defn submit
     ([links]
         (submit links ""))
     ([links stem]
+        (println (count links) "links")
         (->> links
             (map #(link-to-job stem %))
             (map job-to-request)
-            (pmap client/post))))
+            (pmap post))))
